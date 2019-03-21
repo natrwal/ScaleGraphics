@@ -1,0 +1,59 @@
+import java.io.File;
+import java.util.Scanner;
+import java.io.*;
+
+public class Scaler
+{
+    public static void main(String[] args) throws Exception
+    {
+        FileWriter fw=new FileWriter("ScaledGraphic.txt");
+        PrintWriter output=new PrintWriter(fw);
+        File file=new File(args[1]);
+        Scanner kb=new Scanner(file);
+        int digits2;
+        String digits1;
+        String in;
+        while(kb.hasNext())
+        {
+            digits1="";
+            digits2=0;
+            in=kb.nextLine();
+            String[] lines=in.split(";\n");
+            for(int j=0;j<lines.length;j++)
+            {
+                if(lines[j].matches(".*Color.*|.*try.*|.*class.*"))
+                {
+                    output.println(lines[j]);
+                    continue;
+                }
+                String[] input=lines[j].split("");
+                for(int i=0;i<input.length;i++)
+                {
+                    digits2=0;
+                    digits1="0";
+                    if(input[i].equals("0")||input[i].equals("1")||input[i].equals("2")||input[i].equals("3")||input[i].equals("4")||input[i].equals("5")||input[i].equals("6")||input[i].equals("7")||input[i].equals("8")||input[i].equals("9"))
+                    {
+                        while((i<input.length)&&(input[i].equals("0")||input[i].equals("1")||input[i].equals("2")||input[i].equals("3")||input[i].equals("4")||input[i].equals("5")||input[i].equals("6")||input[i].equals("7")||input[i].equals("8")||input[i].equals("9")))
+                        {
+                            digits1=digits1+input[i];
+                            i++;
+                        }
+                        digits2=Integer.parseInt(digits1)*2;
+                        output.print(digits2);
+                        i--;
+                    }
+                    else
+                    {
+                        output.print(input[i]);
+
+                    }
+                }
+                output.println("");
+            }
+        }
+            output.close();
+            fw.close();
+    }
+}
+
+
